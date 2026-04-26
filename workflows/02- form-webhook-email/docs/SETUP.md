@@ -69,7 +69,7 @@ YOUR_WEBHOOK_URL
 With:
 
 ```plaintext id="hook2"
-https://your-n8n-webhook-url
+[https://your-n8n-webhook-url](https://your-n8n-webhook-url/webhook/xxx)
 ```
 
 ---
@@ -84,7 +84,7 @@ This workflow will:
 
 ---
 
-## ⚡ Final checklist
+## Final checklist
 
 * SMTP credentials created
 * Gmail app password used
@@ -110,7 +110,7 @@ This workflow requires a valid webhook trigger source (Google Form, API, or fron
 
 ---
 
-# 🌐 7. Google Form Integration (Optional ⭐✨)
+# 7. Google Form Integration (Optional ⭐✨)
 
 If you are using Google Forms as input source:
 
@@ -128,7 +128,7 @@ Link it to Google Sheets:
 
 ---
 
-### ⚙️ Step 2: Open Apps Script
+### Step 2: Open Apps Script
 
 In Google Sheets:
 
@@ -157,7 +157,7 @@ function onFormSubmit(e) {
 
 ---
 
-### 🚀 Step 3: Add Trigger
+### Step 3: Add Trigger
 
 In Apps Script:
 
@@ -172,7 +172,7 @@ Save and authorize ⭐
 
 ---
 
-### 🔗 Step 4: Add Webhook URL
+### Step 4: Add Webhook URL
 
 Replace:
 
@@ -188,7 +188,7 @@ https://your-n8n-webhook-url
 
 ---
 
-### ⚡ Step 5: Test Flow
+### Step 5: Test Flow
 
 1. Submit Google Form ⭐
 2. Apps Script sends data
@@ -204,5 +204,5 @@ Make sure:
 * Webhook URL is correct
 * SMTP is configured
 * Apps Script trigger is enabled
-* 
+  
 ---
