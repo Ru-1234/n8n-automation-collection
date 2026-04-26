@@ -2,10 +2,10 @@
 
 ## 1. Import workflow into n8n
 
-* Open n8n
-* Click **Import workflow**
-* Paste JSON or upload file
-* Save workflow
+* Open n8n  
+* Click **Import workflow**  
+* Paste JSON or upload file  
+* Save workflow  
 
 ---
 
@@ -13,35 +13,33 @@
 
 Go to:
 
-👉 **Credentials → New → SMTP**
+👉 **Credentials -> New -> SMTP**
 
 ### Gmail setup (recommended)
 
-* **Host:** `smtp.gmail.com`
-* **Port:** `465`
-* **Secure (SSL):** true
-* **User:** your Gmail address
-* **Password:** Gmail **App Password** (NOT normal password)
+* **Host:** `smtp.gmail.com`  
+* **Port:** `465`  
+* **Secure (SSL):** true  
+* **User:** your Gmail address  
+* **Password:** Gmail **App Password** (NOT normal password)  
 
 ---
 
 ## 🔐 How to get Gmail App Password ✨
 
-1. Go to Google Account settings
-2. Enable **2-Step Verification**
-3. Search: **App Passwords**
-4. Create one for “Mail”
-5. Copy 16-character password
+1. Go to Google Account settings  
+2. Enable **2-Step Verification**  
+3. Search: **App Passwords**  
+4. Create one for “Mail”  
+5. Copy 16-character password  
 
 ---
 
 ## 3. Attach SMTP credential ⭐
 
-Open your workflow → **Send Email node**
+Open your workflow -> **Send Email node**
 
-👉 Select your SMTP credential in UI
-
-(Do NOT edit JSON manually unless needed)
+👉 Select your SMTP credential in UI  
 
 ---
 
@@ -49,8 +47,8 @@ Open your workflow → **Send Email node**
 
 Open **Webhook node** in n8n:
 
-* Method: `POST`
-* Path: `YOUR_WEBHOOK_PATH_HERE` (or auto-generated)
+* Method: `POST`  
+* Path: `YOUR_WEBHOOK_PATH_HERE`  
 
 👉 Copy **Production URL**
 
@@ -62,14 +60,14 @@ If using Google Form / Apps Script:
 
 Replace:
 
-```plaintext id="hook1"
+```plaintext
 YOUR_WEBHOOK_URL
-```
+````
 
 With:
 
-```plaintext id="hook2"
-[https://your-n8n-webhook-url](https://your-n8n-webhook-url/webhook/xxx)
+```plaintext
+https://your-n8n-webhook-url
 ```
 
 ---
@@ -84,7 +82,7 @@ This workflow will:
 
 ---
 
-## Final checklist
+## ⚡ Final checklist
 
 * SMTP credentials created
 * Gmail app password used
@@ -94,7 +92,7 @@ This workflow will:
 
 ---
 
-# 🚀 What happens when it runs
+## 🚀 What happens when it runs
 
 1. Webhook receives data ⭐
 2. n8n processes request
@@ -110,13 +108,11 @@ This workflow requires a valid webhook trigger source (Google Form, API, or fron
 
 ---
 
-# 7. Google Form Integration (Optional ⭐✨)
-
-If you are using Google Forms as input source:
+## 🌐 Google Form Integration (Optional ⭐✨)
 
 ### 📋 Step 1: Create Google Form
 
-Add fields like:
+Add fields:
 
 * Name
 * Email
@@ -124,19 +120,19 @@ Add fields like:
 * Department
 
 Link it to Google Sheets:
-👉 Responses → **Link to Sheets**
+👉 Responses -> **Link to Sheets**
 
 ---
 
-### Step 2: Open Apps Script
+### ⚙️ Step 2: Open Apps Script
 
 In Google Sheets:
 
-👉 Extensions → Apps Script
+👉 Extensions -> Apps Script
 
 Paste this code:
 
-```javascript id="gs1"
+```javascript
 function onFormSubmit(e) {
   const row = e.values;
 
@@ -157,9 +153,7 @@ function onFormSubmit(e) {
 
 ---
 
-### Step 3: Add Trigger
-
-In Apps Script:
+### 🚀 Step 3: Add Trigger
 
 * Click **Triggers (clock icon)**
 * Add Trigger:
@@ -172,37 +166,27 @@ Save and authorize ⭐
 
 ---
 
-### Step 4: Add Webhook URL
+### 🔗 Step 4: Add Webhook URL
 
 Replace:
 
-```plaintext id="wh1"
+```
 YOUR_N8N_WEBHOOK_URL_HERE
 ```
 
 With:
 
-```plaintext id="wh2"
+```
 https://your-n8n-webhook-url
 ```
 
 ---
 
-### Step 5: Test Flow
+### ⚡ Step 5: Test Flow
 
 1. Submit Google Form ⭐
 2. Apps Script sends data
 3. n8n receives webhook
 4. Email is sent automatically ✨
 
----
-
-## Final Note ⭐
-
-Make sure:
-* n8n workflow is ACTIVE
-* Webhook URL is correct
-* SMTP is configured
-* Apps Script trigger is enabled
-  
 ---
