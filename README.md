@@ -1,4 +1,4 @@
-# ⚡ n8n Automation Projects Repository ⭐✨
+# n8n Automation Projects Repository ⭐✨
 
 A collection of real-world automation workflows built using **n8n**, covering APIs, webhooks, email automation, Google services, databases, and system integrations.
 
@@ -20,7 +20,7 @@ Each workflow is independent and can be imported directly into n8n.
 
 ---
 
-## 🧠 Workflows Included
+## Workflows Included
 
 ### ✉️ Email Automation System
 - Scheduled email sending using triggers
