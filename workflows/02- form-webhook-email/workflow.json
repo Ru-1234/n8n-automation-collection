@@ -1,0 +1,77 @@
+{
+  "name": "workflow-2",
+  "nodes": [
+    {
+      "parameters": {
+        "fromEmail": "YOUR_EMAIL_HERE",
+        "toEmail": "={{ $json.body.email }}",
+        "subject": "Thank you",
+        "emailFormat": "text",
+        "text": "Your response is submitted. Thank you for your response.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        -16,
+        -48
+      ],
+      "id": "cf5f5ba4-a000-4a56-8d12-7f5a9641b1dc",
+      "name": "Send an Email",
+      "webhookId": "437b8f9b-b413-4558-a6f5-7a1fd857fc15",
+      "credentials": {
+        "smtp": {
+          "id": "REPLACE_WITH_YOUR_SMTP_CREDENTIAL_ID",
+          "name": "SETUP_SMTP_IN_YOUR_N8N_INSTANCE"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "YOUR_WEBHOOK_PATH_HERE",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -192,
+        -80
+      ],
+      "id": "be7390fd-f805-49a5-a2a5-db3e3e2c2505",
+      "name": "Webhook",
+      "webhookId": "YOUR_WEBHOOK_ID_HERE"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Send an Email": {
+      "main": [
+        []
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Send an Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "0d688d59-d1a6-4db5-ad07-0a3c2e508637",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "YOUR_INSTANCE_ID"
+  },
+  "id": "bx5YrNyIsMQVEW52",
+  "tags": []
+}
