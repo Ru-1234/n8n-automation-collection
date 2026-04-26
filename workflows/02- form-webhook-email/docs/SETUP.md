@@ -109,3 +109,100 @@ This workflow will:
 This workflow requires a valid webhook trigger source (Google Form, API, or frontend request). SMTP must be configured inside n8n.
 
 ---
+
+# 🌐 7. Google Form Integration (Optional ⭐✨)
+
+If you are using Google Forms as input source:
+
+### 📋 Step 1: Create Google Form
+
+Add fields like:
+
+* Name
+* Email
+* Contact
+* Department
+
+Link it to Google Sheets:
+👉 Responses → **Link to Sheets**
+
+---
+
+### ⚙️ Step 2: Open Apps Script
+
+In Google Sheets:
+
+👉 Extensions → Apps Script
+
+Paste this code:
+
+```javascript id="gs1"
+function onFormSubmit(e) {
+  const row = e.values;
+
+  const payload = JSON.stringify({
+    name: row[1],
+    email: row[2],
+    contact: row[3],
+    department: row[4]
+  });
+
+  UrlFetchApp.fetch("YOUR_N8N_WEBHOOK_URL_HERE", {
+    method: "POST",
+    contentType: "application/json",
+    payload: payload
+  });
+}
+```
+
+---
+
+### 🚀 Step 3: Add Trigger
+
+In Apps Script:
+
+* Click **Triggers (clock icon)**
+* Add Trigger:
+
+  * Function: `onFormSubmit`
+  * Event Source: From spreadsheet
+  * Event Type: On form submit
+
+Save and authorize ⭐
+
+---
+
+### 🔗 Step 4: Add Webhook URL
+
+Replace:
+
+```plaintext id="wh1"
+YOUR_N8N_WEBHOOK_URL_HERE
+```
+
+With:
+
+```plaintext id="wh2"
+https://your-n8n-webhook-url
+```
+
+---
+
+### ⚡ Step 5: Test Flow
+
+1. Submit Google Form ⭐
+2. Apps Script sends data
+3. n8n receives webhook
+4. Email is sent automatically ✨
+
+---
+
+## Final Note ⭐
+
+Make sure:
+* n8n workflow is ACTIVE
+* Webhook URL is correct
+* SMTP is configured
+* Apps Script trigger is enabled
+* 
+---
