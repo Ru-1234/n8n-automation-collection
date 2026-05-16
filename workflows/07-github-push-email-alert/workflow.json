@@ -1,0 +1,63 @@
+{
+  "name": "Github-tracker",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "github-tracker"
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [0, 19],
+      "name": "Webhook"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body;\n\nconst pusher = body.pusher.name;\nconst repo = body.repository.name;\nconst branch = body.ref.replace(\"refs/heads/\", \"\");\nconst commits = body.commits;\n\nconst commitList = commits.map((c, i) => \n  `${i + 1}. ${c.message} — by ${c.author.name}`\n).join(\"<br>\");\n\nconst message = `\n<h3>🔔 New GitHub Activity!</h3>\n<b>Repository:</b> ${repo}<br>\n<b>Branch:</b> ${branch}<br>\n<b>Pushed by:</b> ${pusher}<br><br>\n<b>Commits:</b><br>\n${commitList}\n`;\n\nreturn [{ json: { message, repo, branch, pusher } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [208, 32],
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "sendTo": "your-email@example.com",
+        "subject": "={{ $json.repo }} — new push on {{ $json.branch }}",
+        "message": "={{ $json.message }}"
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [416, 32],
+      "name": "Send a message"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
