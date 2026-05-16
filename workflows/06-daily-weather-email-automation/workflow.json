@@ -1,0 +1,110 @@
+{
+  "name": "Weather Notification Bot (n8n + Gmail)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 6
+            },
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [-640, -48],
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "https://api.open-meteo.com/v1/forecast?latitude=YOUR_LATITUDE&longitude=YOUR_LONGITUDE&current=temperature_2m,weathercode,precipitation_probability&timezone=Asia/Karachi"
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [-304, -240],
+      "name": "Weather API 1"
+    },
+    {
+      "parameters": {
+        "url": "https://api.open-meteo.com/v1/forecast?latitude=YOUR_LATITUDE&longitude=YOUR_LONGITUDE&current=temperature_2m,weathercode,precipitation_probability&timezone=Asia/Karachi"
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [-304, -64],
+      "name": "Weather API 2"
+    },
+    {
+      "parameters": {
+        "url": "https://api.open-meteo.com/v1/forecast?latitude=YOUR_LATITUDE&longitude=YOUR_LONGITUDE&current=temperature_2m,weathercode,precipitation_probability&timezone=Asia/Karachi"
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [-304, 128],
+      "name": "Weather API 3"
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [16, -80],
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all();\n\nfunction getCondition(code) {\n  if (code === 0) return 'Clear sky';\n  if (code <= 3) return 'Partly cloudy';\n  if (code <= 48) return 'Foggy';\n  if (code <= 67) return 'Rain';\n  if (code <= 77) return 'Snow';\n  if (code <= 82) return 'Rain showers';\n  if (code <= 99) return 'Thunderstorm';\n  return 'Unknown';\n}\n\nfunction cityBlock(name, data) {\n  const umbrella = data.precipitation_probability > 50 ? 'Carry umbrella!' : 'No rain expected.';\n  return `<b>📍 ${name}</b><br>🌡️ ${data.temperature_2m}°C — ${getCondition(data.weathercode)}<br>🌧️ Rain: ${data.precipitation_probability}% — ${umbrella}`;\n}\n\nconst c1 = all[0].json.current;\nconst c2 = all[1].json.current;\nconst c3 = all[2].json.current;\n\nconst message = `Good morning! Today's weather update\\n\\n${cityBlock('City 1', c1)}\\n\\n${cityBlock('City 2', c2)}\\n\\n${cityBlock('City 3', c3)}`;\n\nreturn [{ json: { message } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [288, -64],
+      "name": "Format Message"
+    },
+    {
+      "parameters": {
+        "sendTo": "YOUR_EMAIL_HERE",
+        "subject": "Good morning! Weather update",
+        "message": "={{ $json.message }}"
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [496, -64],
+      "name": "Send Email",
+      "credentials": {
+        "gmailOAuth2": {}
+      }
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          { "node": "Weather API 1", "type": "main", "index": 0 },
+          { "node": "Weather API 2", "type": "main", "index": 0 },
+          { "node": "Weather API 3", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Weather API 1": {
+      "main": [[{ "node": "Merge", "type": "main", "index": 0 }]]
+    },
+    "Weather API 2": {
+      "main": [[{ "node": "Merge", "type": "main", "index": 1 }]]
+    },
+    "Weather API 3": {
+      "main": [[{ "node": "Merge", "type": "main", "index": 2 }]]
+    },
+    "Merge": {
+      "main": [[{ "node": "Format Message", "type": "main", "index": 0 }]]
+    },
+    "Format Message": {
+      "main": [[{ "node": "Send Email", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": {
+    "timezone": "Asia/Karachi"
+  }
+}
