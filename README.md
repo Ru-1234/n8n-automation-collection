@@ -1,93 +1,50 @@
-# n8n Automation Projects Repository ⭐✨
+# n8n Automation Projects
 
-A collection of real-world automation workflows built using **n8n**, covering APIs, webhooks, email automation, Google services, databases, and system integrations.
+A growing collection of real-world automation workflows built with n8n — REST APIs, webhooks, email automation, AI integrations, Google services, and databases.
 
-This repository focuses on building **practical automation systems** that solve real problems using no-code/low-code workflows.
-
----
-
-## 🚀 Overview
-
-This repository contains multiple automation workflows designed to:
-
-- Automate repetitive tasks
-- Connect different services together
-- Work with APIs and external systems
-- Handle data processing pipelines
-- Build real-time automation systems
-
-Each workflow is independent and can be imported directly into n8n.
+Every workflow here was built from scratch, debugged, and documented. The goal is not just working automations — but understanding every concept behind them.
 
 ---
 
-## Workflows Included
+## Workflows
 
-### ✉️ Email Automation System
-- Scheduled email sending using triggers
-- SMTP-based email integration
-- Automated messaging system
+### 01 — Scheduled Email
+Sends automated emails on a schedule using triggers and SMTP integration.
 
----
+### 02 — Form Webhook Email
+Receives Google Form submissions via webhook and sends automated email responses.
 
-### 🌐 Webhook Automation System
-- Receives real-time data via webhook
-- Processes incoming JSON payloads
-- Sends automated email responses
+### 03 — Webhook Email Google Sheets
+Captures webhook data, logs it into Google Sheets, and triggers email notifications.
 
----
+### 04 — Weather API Google Sheets
+Fetches live weather data from Open-Meteo API and stores it in Google Sheets automatically.
 
-### 📋 Google Forms Automation
-- Google Form submissions stored in Sheets
-- Apps Script sends data to n8n webhook
-- Automated email responses based on form input
+### 05 — Inactive User Email MySQL
+Queries a MySQL database for inactive users and sends them automated re-engagement emails.
 
----
-
-### 🔌 API Integration Workflows
-- REST API requests inside n8n
-- Data fetching and transformation
-- External service integration
+### 06 — Daily Weather Email
+Fetches weather for multiple cities every morning and delivers a formatted HTML email summary via Gmail.
 
 ---
 
-### 🌦️ Weather Automation
-- Fetches live weather data from APIs
-- Processes and formats JSON responses
-- Sends automated updates via email
+## Tech Stack
+
+n8n · REST APIs · Webhooks · JavaScript · Gmail · SMTP · Google Sheets · Apps Script · MySQL · PostgreSQL · OpenAI API · Telegram
 
 ---
 
-### 🗄️ Database Automation
-- Connects n8n with databases
-- Insert, update, and fetch operations
-- Automated data pipelines
+## Concepts Covered
+
+| Concept | Where Used |
+|---------|------------|
+| REST APIs + JSON | Weather workflows, API integrations |
+| Webhooks | Form automation, webhook email system |
+| Cron scheduling | Email scheduler, weather bot |
+| OAuth authentication | Gmail, Google Sheets |
+| HTML email formatting | Weather bot, email scheduler |
+| Database queries | MySQL inactive user workflow |
+| Data merging | Multi-city weather workflow |
+| JavaScript (Code node) | All workflows with data transformation |
 
 ---
-
-## ⚙️ Tech Stack
-
-- n8n (Automation platform)
-- REST APIs
-- Webhooks
-- SMTP Email services
-- Google Sheets + Apps Script
-- Databases (SQL/NoSQL)
-- JSON data processing
-
----
-
-## 📁 Repository Structure
-
-```plaintext id="structure1"
-repo/
-│
-├── README.md
-│
-├── workflows/
-│   ├── email-scheduler/
-│   │   ├── workflow.json
-│   │   ├── setup.md
-│   │
-│   ├── webhook-email-system/
-│   │   ├── workflow.json
-│   │   ├── setup.md
